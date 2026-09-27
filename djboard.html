@@ -2,6 +2,9 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ghost DJ Board</title>
 
 <style>
 html, body {
@@ -31,7 +34,11 @@ html, body {
     font-family: Arial, sans-serif;
     font-size: 64px;
     font-weight: bold;
-    color: white;
+
+    color: #FFFFFF;
+
+    text-shadow:
+        2px 2px 4px #000000;
 
     transform: translateY(-50%);
 
@@ -39,10 +46,17 @@ html, body {
         laufen 15s linear infinite;
 }
 
+
+/* =========================================
+   LAUFSCHRIFT
+   rechts rein -> links raus
+   ========================================= */
+
 @keyframes laufen {
 
     0% {
         left: 100%;
+
         transform:
             translateY(-50%)
             translateX(0);
@@ -50,6 +64,7 @@ html, body {
 
     100% {
         left: 0%;
+
         transform:
             translateY(-50%)
             translateX(-100%);
@@ -58,17 +73,26 @@ html, body {
 </style>
 </head>
 
+
 <body>
 
 <div class="board">
+
     <div
         class="text"
         id="lauftext">
-        WILLKOMMEN
+        WILLKOMMEN BEI GHOST BRENTLEY
     </div>
+
 </div>
 
+
 <script>
+
+// =========================================
+// TEXT AUS SECOND LIFE HOLEN
+// =========================================
+
 const params =
     new URLSearchParams(
         window.location.search
@@ -77,11 +101,54 @@ const params =
 const neuerText =
     params.get("text");
 
-if (neuerText) {
+const lauftext =
     document.getElementById(
         "lauftext"
-    ).textContent = neuerText;
+    );
+
+if (neuerText) {
+    lauftext.textContent =
+        neuerText;
 }
+
+
+// =========================================
+// FARBEN
+// =========================================
+
+const farben = [
+    "#FFFFFF", // Weiss
+    "#FF3030", // Rot
+    "#00FF66", // Gruen
+    "#33AAFF", // Blau
+    "#FFFF00", // Gelb
+    "#FF33CC", // Pink
+    "#FF8800"  // Orange
+];
+
+let farbe = 0;
+
+
+// =========================================
+// NACH JEDEM DURCHLAUF
+// FARBE WECHSELN
+// =========================================
+
+lauftext.addEventListener(
+    "animationiteration",
+    function () {
+
+        farbe++;
+
+        if (farbe >= farben.length) {
+            farbe = 0;
+        }
+
+        lauftext.style.color =
+            farben[farbe];
+    }
+);
+
 </script>
 
 </body>
