@@ -2,48 +2,87 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DJ Laufschrift</title>
+
 <style>
 html, body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #111;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
 }
+
 .board {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
+
 .text {
-  position: absolute;
-  white-space: nowrap;
-  font-family: Arial, sans-serif;
-  font-size: 64px;
-  font-weight: 700;
-  color: white;
-  text-shadow: 2px 2px 4px #000;
-  animation: lauf 18s linear infinite;
+    position: absolute;
+
+    top: 50%;
+    left: 0;
+
+    white-space: nowrap;
+
+    font-family: Arial, sans-serif;
+    font-size: 64px;
+    font-weight: bold;
+    color: white;
+
+    transform: translateY(-50%);
+
+    animation:
+        laufen 15s linear infinite;
 }
-@keyframes lauf {
-  from { transform: translateX(100vw); }
-  to   { transform: translateX(-100%); }
+
+@keyframes laufen {
+
+    0% {
+        left: 100%;
+        transform:
+            translateY(-50%)
+            translateX(0);
+    }
+
+    100% {
+        left: 0%;
+        transform:
+            translateY(-50%)
+            translateX(-100%);
+    }
 }
 </style>
 </head>
+
 <body>
+
 <div class="board">
-  <div class="text" id="text">WILLKOMMEN BEIM DJ</div>
+    <div
+        class="text"
+        id="lauftext">
+        WILLKOMMEN
+    </div>
 </div>
+
 <script>
-const p = new URLSearchParams(window.location.search);
-const text = p.get("text");
-if (text) document.getElementById("text").textContent = text;
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const neuerText =
+    params.get("text");
+
+if (neuerText) {
+    document.getElementById(
+        "lauftext"
+    ).textContent = neuerText;
+}
 </script>
+
 </body>
 </html>
